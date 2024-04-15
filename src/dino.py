@@ -26,7 +26,7 @@ def loop(frame: int) -> None:
     render.clear_frame_buffer()
     global x, y
     dino = model.build_deno(False, frame)
-    render.draw(x, y, dino) #FIXME the dino can only move horizontally...
+    render.draw(x, y, dino)
     x += 1
     y += 1
     render.update_screen()
@@ -48,9 +48,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "-rw",
         "--width",
-        help="render resolution width, default is 50, min is 20",
+        help="render resolution width, default is 100, min is 20",
         type=int,
-        default=50,
+        default=100,
     )
     parser.add_argument(
         "-rh",

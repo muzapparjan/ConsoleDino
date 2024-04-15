@@ -8,9 +8,9 @@ _frameBufferHeight = 0
 def clear_frame_buffer() -> None:
     global _frameBuffer
     _frameBuffer.clear()
-    for j in range(_frameBufferWidth):
+    for j in range(_frameBufferHeight):
         line = []
-        for i in range(_frameBufferHeight):
+        for i in range(_frameBufferWidth):
             line.append(" ")
         _frameBuffer.append("".join(line))
 
@@ -38,12 +38,10 @@ def draw(x: int, y: int, object: list[str]) -> None:
         pixelsToDraw = [pixel for pixel in object[j]]
         for i in range(size[0]):
             _x = x + i
-            if _x >= _frameBufferWidth:
-                break
-            if _x < 0:
+            if _x >= _frameBufferWidth or _x < 0:
                 continue
             pixels[_x] = pixelsToDraw[i]
-        _frameBuffer[j] = "".join(pixels)
+        _frameBuffer[_y] = "".join(pixels)
 
 
 def get_drawable_size(object: list[str]) -> tuple[int, int]:
