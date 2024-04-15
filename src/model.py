@@ -15,6 +15,7 @@ def build_deno(dead: bool, frame: int) -> list[str]:
             build_deno_feet_right_up(body)
     return body
 
+
 def build_deno_body() -> list[str]:
     body = []
     body.append("             _____  ")
@@ -39,13 +40,16 @@ def build_deno_body() -> list[str]:
     body.append("    ‾‾‾ ‾‾‾         ")
     return body
 
-def build_deno_eye_normal(body: list[str]):
+
+def build_deno_eye_normal(body: list[str]) -> None:
     body[2] = "           ■■■▪■■■■■"
 
-def build_deno_eye_dead(body: list[str]):
+
+def build_deno_eye_dead(body: list[str]) -> None:
     body[2] = "           ■■■▢■■■■■"
 
-def build_deno_feet_idle(body: list[str]):
+
+def build_deno_feet_idle(body: list[str]) -> None:
     body[-6] = "    ■■■ ■■■         "
     body[-5] = "    ■■  ■■          "
     body[-4] = "    ■   ■           "
@@ -53,7 +57,8 @@ def build_deno_feet_idle(body: list[str]):
     body[-2] = "    ■■■ ■■■         "
     body[-1] = "    ‾‾‾ ‾‾‾         "
 
-def build_deno_feet_left_up(body: list[str]):
+
+def build_deno_feet_left_up(body: list[str]) -> None:
     body[-6] = "    ■■■ ■■■         "
     body[-5] = "  ■■■   ■■          "
     body[-4] = "  ‾‾‾   ■           "
@@ -61,7 +66,8 @@ def build_deno_feet_left_up(body: list[str]):
     body[-2] = "        ■■■         "
     body[-1] = "        ‾‾‾         "
 
-def build_deno_feet_right_up(body: list[str]):
+
+def build_deno_feet_right_up(body: list[str]) -> None:
     body[-6] = "    ■■■ ■■■         "
     body[-5] = "    ■■    ■■■       "
     body[-4] = "    ■     ‾‾‾       "
