@@ -1,7 +1,13 @@
-def build_deno(dead: bool, frame: int) -> list[str]:
+def build_deno(state: str, frame: int) -> list[str]:
     body = build_deno_body()
-    if dead:
+    if state == "dead":
         build_deno_eye_dead(body)
+    elif state == "idle":
+        index = frame % 2
+        if index == 0:
+            build_deno_eye_normal(body)
+        elif index == 1:
+            build_deno_eye_dead(body)
     else:
         build_deno_eye_normal(body)
         index = frame % 4
