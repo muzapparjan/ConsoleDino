@@ -13,22 +13,50 @@ GameState = GAME_STATE_START
 Score: int = 0
 MaxScore: int = 0
 
+Frame = 0
+FPS: float = 10
+ScreenWidth = 100
+ScreenHeight = 50
+
 
 def init(args: argparse.Namespace) -> None:
-    render.set_frame_buffer_size(args.width, args.height)
+    global FPS, ScreenWidth, ScreenHeight
+    FPS = max(args.fps, 1)
+    ScreenWidth = max(args.width, 20)
+    ScreenHeight = max(args.height, 20)
+    render.set_frame_buffer_size(ScreenWidth, ScreenHeight)
 
 
-x = 0
-y = 0
+def flip_y(object: list[str], y: int) -> int:
+    size = render.get_drawable_size(object)
+    return ScreenHeight - y - size[1]
 
 
-def loop(frame: int) -> None:
+def render_screen_start() -> None:
+    deno = model.build_deno("idle", Frame)
+    tip = ["press space to play"]
+    render.draw(0, flip_y(deno, 0), deno)
+    render.draw(
+        int((ScreenWidth - len(tip)) / 2), flip_y(tip, int(ScreenHeight / 2)), tip
+    )
+
+
+def render_screen_playing() -> None:
+    pass
+
+
+def render_screen_end() -> None:
+    pass
+
+
+def loop() -> None:
     render.clear_frame_buffer()
-    global x, y
-    dino = model.build_deno(False, frame)
-    render.draw(x, y, dino)
-    x += 1
-    y += 1
+    if GameState == GAME_STATE_START:
+        render_screen_start()
+    elif GameState == GAME_STATE_PLAYING:
+        render_screen_playing()
+    elif GameState == GAME_STATE_END:
+        render_screen_end()
     render.update_screen()
 
 
@@ -64,15 +92,14 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    fps: float = max(args.fps, 1)
-    frame: int = 0
     init(args)
+    global Frame
     while True:
         if input.quit():
             break
-        loop(frame)
-        frame += 1
-        time.sleep(1.0 / fps)
+        loop()
+        Frame += 1
+        time.sleep(1.0 / FPS)
 
 
 if __name__ == "__main__":
