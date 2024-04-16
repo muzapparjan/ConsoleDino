@@ -83,7 +83,7 @@ def render_screen_start() -> None:
 
 
 def render_screen_playing() -> None:
-    global DinoY, DinoJumpDuration
+    global DinoY, DinoJumpDuration, Score
     dino = model.build_dino("", Frame)
     DinoJumpDuration += DeltaTime
     if input.dino_jump() and DinoY <= GROUND_Y:
@@ -96,6 +96,14 @@ def render_screen_playing() -> None:
     DinoY = max(DinoY, GROUND_Y)
     dinoBox = physics.get_aabb(dino, DinoX, DinoY)
     cactus = model.build_cactus()
+
+    cactusToRemove = []
+    for distance in CactusList:
+        if distance <= -10:
+            cactusToRemove.append(distance)
+    for distance in cactusToRemove:
+        CactusList.remove(distance)
+        Score += 1
 
     while len(CactusList) < 5:
         minDistance = ScreenWidth
@@ -111,7 +119,10 @@ def render_screen_playing() -> None:
 
     render.draw(DinoX, flip_y(dino, DinoY), dino)
     for index, distance in enumerate(CactusList):
-       render.draw(distance, flip_y(cactus, GROUND_Y), cactus)
+        render.draw(distance, flip_y(cactus, GROUND_Y), cactus)
+
+    scoreText = "score: " + str(Score)
+    render.draw(ScreenWidth - len(scoreText) - 1, 0, [scoreText])
 
 
 def render_screen_end() -> None:
