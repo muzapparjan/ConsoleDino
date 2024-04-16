@@ -146,7 +146,7 @@ def render_screen_end() -> None:
     if Score >= MaxScore:
         tips.append("   NEW RECORD!!!    ")
         MaxScore = Score
-    tips.append("press space to play ")
+    tips.append("  jump to restart   ")
     render.draw(
         int((ScreenWidth - len(tips[0])) / 2),
         flip_y(tips, int((ScreenHeight - len(tips)) / 2)),
